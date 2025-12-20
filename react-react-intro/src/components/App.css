@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  background-color: #434861;
+}
+
+.App {
+  text-align: center;
+}
+
+.main-header {
+     background-color: #272b33;
+     text-align: "center";
+     padding: 20px;
+     color: rgb(255, 255, 255);
+}
+
+.playlist-div {
+    border: 2px, solid, #ffffff;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    color: rgb(214, 136, 136);
+}
+
+h2 {
+  margin-top: 30px;
+  color: #ff9595;
+}
