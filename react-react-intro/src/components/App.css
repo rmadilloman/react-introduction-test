@@ -21,7 +21,11 @@ body {
     border-radius: 8px;
     color: rgb(214, 136, 136);
 }
-
+.playlist-main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
 h2 {
   margin-top: 30px;
   color: #ff9595;

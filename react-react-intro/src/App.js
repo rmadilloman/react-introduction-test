@@ -12,7 +12,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
-        <main style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+        <main className="playlist-main">
           <h2>My Playlist</h2>
           
           <Song title="Traffic" artist="VeenBlox" duration="3:36" />
