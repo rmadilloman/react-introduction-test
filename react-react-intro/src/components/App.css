@@ -1,32 +1,16 @@
 body {
   margin: 0;
   background-color: #434861;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .App {
-  text-align: center;
+  min-height: 100vh;
 }
 
-.main-header {
-     background-color: #272b33;
-     text-align: "center";
-     padding: 20px;
-     color: rgb(255, 255, 255);
-}
-
-.playlist-div {
-    border: 2px, solid, #ffffff;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 8px;
-    color: rgb(214, 136, 136);
-}
-.playlist-main {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-h2 {
-  margin-top: 30px;
-  color: #ff9595;
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
 }

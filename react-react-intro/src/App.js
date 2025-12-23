@@ -1,28 +1,41 @@
-import React from 'react';
-import './components/App.css';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
-import Song from './components/Song';
+import SearchResults from './components/SearchResults';
+import Library from './components/Library';
+import './components/App.css';
 
-class App extends React.Component {
-  componentDidMount() {
-    console.log('The app has loaded');
-  }
+const App = () => {
+  const fakeSearchResults = [
+    { id: 1, title: "Traffic", artist: "VeenBlox", duration: "3:36" },
+    { id: 2, title: "Destructor", artist: "Gee J", duration: "3:50" },
+    { id: 3, title: "RISE", artist: "League of Legends Music", duration: "3:13" },
+    { id: 4, title: "Beethoven Virus", artist: "BanYa", duration: "3:38" },
+  ];
 
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <main className="playlist-main">
-          <h2>My Playlist</h2>
-          
-          <Song title="Traffic" artist="VeenBlox" duration="3:36" />
-          <Song title="Destructor" artist="Gee J" duration="3:50" />
-          <Song title="RISE" artist="League of Legends Music" duration="3:13" />
-          <Song title="Beethoven Virus" artist="BanYa" duration="3:38" />
-        </main>
-      </div>
-    );
-  }
-}
+  const [searchResults] = useState(fakeSearchResults);
+  const [myLibrary, setMyLibrary] = useState([]);
+
+  const addToLibrary = (song) => {
+    // Prevent duplicates
+    if (!myLibrary.find((s) => s.id === song.id)) {
+      setMyLibrary([...myLibrary, song]);
+    }
+  };
+
+  // Log every time library updates
+  useEffect(() => {
+    console.log('Library updated:', myLibrary);
+  }, [myLibrary]);
+
+  return (
+    <div className="App">
+      <Header />
+      <main>
+        <SearchResults songs={searchResults} onAddToLibrary={addToLibrary} />
+        <Library songs={myLibrary} />
+      </main>
+    </div>
+  );
+};
 
 export default App;

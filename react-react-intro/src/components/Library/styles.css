@@ -1,0 +1,9 @@
+.library {
+  margin: 40px 0;
+  padding-top: 30px;
+  border-top: 3px dashed #ff9595;
+}
+
+.library h2 {
+  color: #ff9595;
+}

@@ -1,0 +1,9 @@
+.search-results {
+  margin: 40px 0;
+}
+
+.search-results h2 {
+  color: #a0d8ef;
+  border-bottom: 2px solid #a0d8ef;
+  padding-bottom: 10px;
+}
