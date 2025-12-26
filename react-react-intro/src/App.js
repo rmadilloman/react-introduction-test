@@ -1,40 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
+import SongDetail from './components/SongDetail';
 import Library from './components/Library';
 import './components/App.css';
 
 const App = () => {
-  const fakeSearchResults = [
-    { id: 1, title: "Traffic", artist: "VeenBlox", duration: "3:36" },
-    { id: 2, title: "Destructor", artist: "Gee J", duration: "3:50" },
-    { id: 3, title: "RISE", artist: "League of Legends Music", duration: "3:13" },
-    { id: 4, title: "Beethoven Virus", artist: "BanYa", duration: "3:38" },
-  ];
-
-  const [searchResults] = useState(fakeSearchResults);
+  const [searchTerm, setSearchTerm] = useState('');
   const [myLibrary, setMyLibrary] = useState([]);
 
-  const addToLibrary = (song) => {
-    // Prevent duplicates
-    if (!myLibrary.find((s) => s.id === song.id)) {
-      setMyLibrary([...myLibrary, song]);
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
+  const addToLibrary = (album) => {
+    // Avoid duplicates
+    if (!myLibrary.some((a) => a.idAlbum === album.idAlbum)) {
+      setMyLibrary([...myLibrary, album]);
     }
   };
 
-  // Log every time library updates
-  useEffect(() => {
-    console.log('Library updated:', myLibrary);
-  }, [myLibrary]);
-
   return (
-    <div className="App">
-      <Header />
-      <main>
-        <SearchResults songs={searchResults} onAddToLibrary={addToLibrary} />
-        <Library songs={myLibrary} />
-      </main>
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <main>
+          <SearchBar onSearch={handleSearch} />
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <SearchResults
+                    searchTerm={searchTerm}
+                    onAddToLibrary={addToLibrary}
+                  />
+                  <Library albums={myLibrary} />
+                </>
+              }
+            />
+            <Route path="/song/:id" element={<SongDetail />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 };
 
