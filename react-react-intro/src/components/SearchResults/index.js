@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
-import './styles.css';
+import {
+  Section,
+  Title,
+  Grid,
+  Card,
+  AlbumImage,
+  ButtonGroup,
+  StyledButton,
+  Message,
+} from './styles';
 
 const SearchResults = ({ searchTerm, onAddToLibrary }) => {
   const url = searchTerm
@@ -10,48 +19,45 @@ const SearchResults = ({ searchTerm, onAddToLibrary }) => {
 
   const { data, loading, error, refetch } = useFetch(url);
 
-  if (!searchTerm) {
-    return <p className="message">Type an artist name to search for albums.</p>;
-  }
-
-  if (loading) return <p className="message">Loading albums...</p>;
-  if (error) {
-    return (
-      <div className="error">
-        <p>Error: {error.message}</p>
-        <button onClick={refetch}>Try Again</button>
-      </div>
-    );
-  }
+  if (!searchTerm) return <Message>Type an artist name to search.</Message>;
+  if (loading) return <Message>Loading albums...</Message>;
+  if (error) return (
+    <Message>
+      Error: {error}
+      <StyledButton onClick={refetch}>Try Again</StyledButton>
+    </Message>
+  );
 
   const albums = data?.album || [];
-  console.log(albums.length)
-  if (albums.length === 0) {
-    return <p className="message">No albums found for "{searchTerm}".</p>;
-  }
+
+  if (albums.length === 0) return <Message>No albums found for "{searchTerm}".</Message>;
 
   return (
-    <section className="search-results">
-      <h2>Albums by {searchTerm}</h2>
-      {albums.map((album) => (
-        <div key={album.idAlbum} className="album-card">
-          <img
-            src={album.strAlbumThumb || 'https://via.placeholder.com/200'}
-            alt={album.strAlbum}
-          />
-          <h3>{album.strAlbum}</h3>
-          <Link to={`/song/${album.idAlbum}`}>
-            <button>View Album Details</button>
-          </Link>
-          <button
-              className="add-library-btn"
-              onClick={() => onAddToLibrary(album)}
-            >
-              Add to My Library
-            </button>
-        </div>
-      ))}
-    </section>
+    <Section>
+      <Title>Albums by {searchTerm}</Title>
+      <Grid>
+        {albums.map((album) => (
+          <Card key={album.idAlbum}>
+            <AlbumImage
+              src={album.strAlbumThumb || 'https://placehold.co/200x200?text=No+Image'}
+              alt={album.strAlbum}
+            />
+            <h3>{album.strAlbum}</h3>
+            <p>Year: {album.intYearReleased || 'Unknown'}</p>
+            <ButtonGroup>
+              {album.idAlbum && (
+                <Link to={`/song/${album.idAlbum}`}>
+                  <StyledButton>View Details</StyledButton>
+                </Link>
+              )}
+              <StyledButton variant="add" onClick={() => onAddToLibrary(album)}>
+                Add to Library
+              </StyledButton>
+            </ButtonGroup>
+          </Card>
+        ))}
+      </Grid>
+    </Section>
   );
 };
 

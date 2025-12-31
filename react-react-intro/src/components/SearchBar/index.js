@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
-import './styles.css';
+import { Form, Input, Button } from './styles';
 
 const SearchBar = ({ onSearch }) => {
   const [input, setInput] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.trim()) {
-      onSearch(input.trim());
-    }
+    if (input.trim()) onSearch(input.trim());
   };
 
   return (
-    <form className="search-bar" onSubmit={handleSubmit}>
-      <input
+    <Form onSubmit={handleSubmit}>
+      <Input
         type="text"
-        placeholder="Search for an artist (Coldplay, Oasis, Michael Jackson)"
+        placeholder="Search for an artist. (Michael Jackson, Coldplay)"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button type="submit">Search</button>
-    </form>
+      <Button type="submit">Search</Button>
+    </Form>
   );
 };
 

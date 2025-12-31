@@ -1,28 +1,37 @@
 import React from 'react';
-import './styles.css';
+import { Section, Title, Grid, AlbumCard, NoImage } from './styles';
 
 const Library = ({ albums }) => {
   if (albums.length === 0) {
     return (
-      <section className="library">
-        <h2>My Library</h2>
-        <p>Your library is empty</p>
-      </section>
+      <Section>
+        <Title>My Library</Title>
+        <p style={{ textAlign: 'center' }}>Your library is empty</p>
+      </Section>
     );
   }
 
   return (
-    <section className="library">
-      <h2>My Library ({albums.length})</h2>
-      <div className="library-grid">
-        {albums.map((album) => (
-          <div key={album.idAlbum || album.strAlbum} className="library-album">
+    <Section>
+      <Title>My Library ({albums.length})</Title>
+      <Grid>
+        {albums.map((album, index) => (
+          <AlbumCard key={album.idAlbum || album.strAlbum} isNew={index === albums.length - 1}>
+            {album.strAlbumThumb ? (
+              <img
+                src={album.strAlbumThumb}
+                alt={album.strAlbum}
+                style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '8px' }}
+              />
+            ) : (
+              <NoImage>No Image</NoImage>
+            )}
             <h3>{album.strAlbum}</h3>
             <p>{album.intYearReleased || 'Unknown'}</p>
-          </div>
+          </AlbumCard>
         ))}
-      </div>
-    </section>
+      </Grid>
+    </Section>
   );
 };
 
