@@ -9,18 +9,11 @@ import './components/App.css';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [myLibrary, setMyLibrary] = useState([]);
 
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
 
-  const addToLibrary = (album) => {
-    // Avoid duplicates
-    if (!myLibrary.some((a) => a.idAlbum === album.idAlbum)) {
-      setMyLibrary([...myLibrary, album]);
-    }
-  };
 
   return (
     <Router>
@@ -36,9 +29,8 @@ const App = () => {
                 <>
                   <SearchResults
                     searchTerm={searchTerm}
-                    onAddToLibrary={addToLibrary}
                   />
-                  <Library albums={myLibrary} />
+                  <Library/> 
                 </>
               }
             />

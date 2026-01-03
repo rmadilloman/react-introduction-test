@@ -40,10 +40,26 @@ const NoImage = styled.div`
   border-radius: 8px;
   margin: 0 auto 10px;
 `
+
+const RemoveButton = styled.button`
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    background: #cc0000;
+  }
+`
 export {
     Section,
     Title,
     Grid,
     AlbumCard,
-    NoImage
+    NoImage,
+    RemoveButton
 }

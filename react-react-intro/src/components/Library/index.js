@@ -1,7 +1,11 @@
 import React from 'react';
-import { Section, Title, Grid, AlbumCard, NoImage } from './styles';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeSong } from '../../redux/libraryActions';
+import { Section, Title, Grid, AlbumCard, NoImage, RemoveButton} from './styles';
 
-const Library = ({ albums }) => {
+const Library = () => { // {albums}
+  const dispatch = useDispatch();
+  const albums = useSelector((state) => state);
   if (albums.length === 0) {
     return (
       <Section>
@@ -28,6 +32,11 @@ const Library = ({ albums }) => {
             )}
             <h3>{album.strAlbum}</h3>
             <p>{album.intYearReleased || 'Unknown'}</p>
+            <RemoveButton
+              onClick={() => dispatch(removeSong(album.idAlbum))}
+            >
+              Remove
+            </RemoveButton>
           </AlbumCard>
         ))}
       </Grid>

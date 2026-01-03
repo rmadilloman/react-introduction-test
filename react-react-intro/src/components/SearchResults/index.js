@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
+import { useDispatch } from 'react-redux';
+import { addSong } from '../../redux/libraryActions';
 import {
   Section,
   Title,
@@ -12,7 +14,8 @@ import {
   Message,
 } from './styles';
 
-const SearchResults = ({ searchTerm, onAddToLibrary }) => {
+const SearchResults = ({ searchTerm }) => {
+  const dispatch = useDispatch();
   const url = searchTerm
     ? `/api/v1/json/2/searchalbum.php?s=${encodeURIComponent(searchTerm)}`
     : null;
@@ -50,7 +53,10 @@ const SearchResults = ({ searchTerm, onAddToLibrary }) => {
                   <StyledButton>View Details</StyledButton>
                 </Link>
               )}
-              <StyledButton variant="add" onClick={() => onAddToLibrary(album)}>
+              <StyledButton 
+              variant="add" 
+              onClick={() => dispatch(addSong(album))}
+              >
                 Add to Library
               </StyledButton>
             </ButtonGroup>
