@@ -16,7 +16,7 @@ const SongDetail = () => {
 
   return (
     <Container>
-      <BackLink as={Link} to="/">← Back to Search</BackLink>
+      <BackLink as={Link} to="/">Back to Search</BackLink>
       <h1>{album.strAlbum}</h1>
       <p><strong>Artist:</strong> {album.strArtist}</p>
       <p><strong>Year:</strong> {album.intYearReleased || 'N/A'}</p>

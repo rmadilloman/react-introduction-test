@@ -1,20 +1,21 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeSong } from '../../redux/libraryActions';
-import { Section, Title, Grid, AlbumCard, NoImage, RemoveButton} from './styles';
+import { removeSong } from '../../redux/slices/librarySlice'; 
+import { Section, Title, Grid, AlbumCard, NoImage, RemoveButton } from './styles';
 
-const Library = () => { // {albums}
+const Library = () => {
   const dispatch = useDispatch();
-  const albums = useSelector((state) => state);
+  const albums = useSelector((state) => state.library);
+
   if (albums.length === 0) {
     return (
       <Section>
         <Title>My Library</Title>
-        <p style={{ textAlign: 'center' }}>Your library is empty</p>
+        <p style={{ textAlign: 'center' }}>Your library is empty. Add some albums!</p>
       </Section>
     );
   }
-
+//setup 
   return (
     <Section>
       <Title>My Library ({albums.length})</Title>
@@ -32,9 +33,7 @@ const Library = () => { // {albums}
             )}
             <h3>{album.strAlbum}</h3>
             <p>{album.intYearReleased || 'Unknown'}</p>
-            <RemoveButton
-              onClick={() => dispatch(removeSong(album.idAlbum))}
-            >
+            <RemoveButton onClick={() => dispatch(removeSong(album.idAlbum))}>
               Remove
             </RemoveButton>
           </AlbumCard>

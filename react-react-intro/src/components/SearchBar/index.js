@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchSongs } from '../../redux/slices/searchSlice';
 import { Form, Input, Button } from './styles';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = () => {
   const [input, setInput] = useState('');
+  const dispatch = useDispatch(); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.trim()) onSearch(input.trim());
+    if (input.trim()) {
+      dispatch(fetchSongs(input.trim()));
+    }
   };
 
   return (

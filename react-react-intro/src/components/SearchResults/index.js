@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
-import { useDispatch } from 'react-redux';
-import { addSong } from '../../redux/libraryActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchSongs } from '../../redux/slices/searchSlice';  // import the new thunk
+import { addSong } from '../../redux/slices/librarySlice';
 import {
   Section,
   Title,
@@ -13,33 +13,28 @@ import {
   StyledButton,
   Message,
 } from './styles';
-
-const SearchResults = ({ searchTerm }) => {
+const SearchResults = () => { 
   const dispatch = useDispatch();
-  const url = searchTerm
-    ? `/api/v1/json/2/searchalbum.php?s=${encodeURIComponent(searchTerm)}`
-    : null;
-
-  const { data, loading, error, refetch } = useFetch(url);
-
-  if (!searchTerm) return <Message>Type an artist name to search.</Message>;
+  const { results, loading, error } = useSelector((state) => state.search);
+    const handleRetry = () => {
+      // skip use of refetch
+      alert('Retry did not succeed');
+    };
   if (loading) return <Message>Loading albums...</Message>;
   if (error) return (
     <Message>
       Error: {error}
-      <StyledButton onClick={refetch}>Try Again</StyledButton>
+      <StyledButton onClick={() => dispatch(handleRetry, fetchSongs)}>Try Again</StyledButton>
     </Message>
   );
 
-  const albums = data?.album || [];
-
-  if (albums.length === 0) return <Message>No albums found for "{searchTerm}".</Message>;
+  if (results.length === 0) return <Message>No albums found. Try searching!</Message>;
 
   return (
     <Section>
-      <Title>Albums by {searchTerm}</Title>
+      <Title>Search Results</Title>
       <Grid>
-        {albums.map((album) => (
+        {results.map((album) => (
           <Card key={album.idAlbum}>
             <AlbumImage
               src={album.strAlbumThumb || 'https://placehold.co/200x200?text=No+Image'}
@@ -53,10 +48,7 @@ const SearchResults = ({ searchTerm }) => {
                   <StyledButton>View Details</StyledButton>
                 </Link>
               )}
-              <StyledButton 
-              variant="add" 
-              onClick={() => dispatch(addSong(album))}
-              >
+              <StyledButton variant="add" onClick={() => dispatch(addSong(album))}>
                 Add to Library
               </StyledButton>
             </ButtonGroup>
