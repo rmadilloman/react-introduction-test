@@ -2,18 +2,17 @@
   "name": "react-react-intro",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "proxy": "https://theaudiodb.com",
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.13.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.11.0",
+    "react-router-dom": "^6.30.3",
     "react-scripts": "5.0.1",
     "redux": "^5.0.1",
     "styled-components": "^6.1.19",
@@ -23,6 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,5 +42,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "jest": "^27.5.1"
   }
 }
